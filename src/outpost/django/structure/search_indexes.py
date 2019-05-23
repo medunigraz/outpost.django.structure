@@ -1,30 +1,15 @@
 from celery_haystack.indexes import CelerySearchIndex
 from haystack import indexes
 
-from .models import (
-    Organization,
-    Person,
-)
+from .models import Organization, Person
 
 
 class OrganizationIndex(CelerySearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(
-        model_attr='campusonline__name',
-        null=True
-    )
-    address = indexes.CharField(
-        model_attr='campusonline__address',
-        null=True
-    )
-    level_id = indexes.IntegerField(
-        model_attr='office__level__pk',
-        null=True
-    )
-    room_id = indexes.IntegerField(
-        model_attr='office__pk',
-        null=True
-    )
+    name = indexes.CharField(model_attr="campusonline__name", null=True)
+    address = indexes.CharField(model_attr="campusonline__address", null=True)
+    level_id = indexes.IntegerField(model_attr="office__level__pk", null=True)
+    room_id = indexes.IntegerField(model_attr="office__pk", null=True)
     presentation = indexes.CharField(use_template=True)
     autocomplete = indexes.EdgeNgramField(use_template=True)
 
@@ -36,28 +21,16 @@ class OrganizationIndex(CelerySearchIndex, indexes.Indexable):
 
     def prepare(self, obj):
         data = super().prepare(obj)
-        data['boost'] = 3.0
+        data["boost"] = 3.0
         return data
 
 
 class PersonIndex(CelerySearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    first_name = indexes.CharField(
-        model_attr='campusonline__first_name',
-        null=True
-    )
-    last_name = indexes.CharField(
-        model_attr='campusonline__last_name',
-        null=True
-    )
-    level_id = indexes.IntegerField(
-        model_attr='room__level__pk',
-        null=True
-    )
-    room_id = indexes.IntegerField(
-        model_attr='room__pk',
-        null=True
-    )
+    first_name = indexes.CharField(model_attr="campusonline__first_name", null=True)
+    last_name = indexes.CharField(model_attr="campusonline__last_name", null=True)
+    level_id = indexes.IntegerField(model_attr="room__level__pk", null=True)
+    room_id = indexes.IntegerField(model_attr="room__pk", null=True)
     presentation = indexes.CharField(use_template=True)
     autocomplete = indexes.EdgeNgramField(use_template=True)
 
@@ -69,5 +42,5 @@ class PersonIndex(CelerySearchIndex, indexes.Indexable):
 
     def prepare(self, obj):
         data = super().prepare(obj)
-        data['boost'] = 2.0
+        data["boost"] = 2.0
         return data

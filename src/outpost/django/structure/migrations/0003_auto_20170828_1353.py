@@ -8,14 +8,18 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('structure', '0002_auto_20170810_1453'),
-    ]
+    dependencies = [("structure", "0002_auto_20170810_1453")]
 
     operations = [
         migrations.AlterField(
-            model_name='organization',
-            name='office',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='geo.Room'),
-        ),
+            model_name="organization",
+            name="office",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="+",
+                to="geo.Room",
+            ),
+        )
     ]

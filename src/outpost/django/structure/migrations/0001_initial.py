@@ -12,34 +12,80 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('campusonline', '0005_organization_person'),
-        ('geo', '0013_auto_20170714_1222'),
+        ("campusonline", "0005_organization_person"),
+        ("geo", "0013_auto_20170714_1222"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Organization',
+            name="Organization",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('color', LowerCaseCharField(default='007b3c', max_length=6)),
-                ('hidden', models.BooleanField(default=False)),
-                ('campusonline', models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='campusonline.Organization')),
-                ('office', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='geo.Room')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("color", LowerCaseCharField(default="007b3c", max_length=6)),
+                ("hidden", models.BooleanField(default=False)),
+                (
+                    "campusonline",
+                    models.ForeignKey(
+                        db_constraint=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="campusonline.Organization",
+                    ),
+                ),
+                (
+                    "office",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="geo.Room",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ('campusonline__name',),
-            },
+            options={"ordering": ("campusonline__name",)},
         ),
         migrations.CreateModel(
-            name='Person',
+            name="Person",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('hidden', models.BooleanField(default=False)),
-                ('campusonline', models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='campusonline.Person')),
-                ('room', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='geo.Room')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("hidden", models.BooleanField(default=False)),
+                (
+                    "campusonline",
+                    models.ForeignKey(
+                        db_constraint=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="campusonline.Person",
+                    ),
+                ),
+                (
+                    "room",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="geo.Room",
+                    ),
+                ),
             ],
             options={
-                'ordering': ('campusonline__last_name', 'campusonline__first_name'),
+                "ordering": ("campusonline__last_name", "campusonline__first_name")
             },
         ),
     ]
