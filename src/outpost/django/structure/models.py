@@ -15,7 +15,9 @@ class Organization(models.Model):
         null=True,
     )
     color = LowerCaseCharField(max_length=6, default="007b3c")
-    office = models.ForeignKey("geo.Room", null=True, blank=True, related_name="+")
+    office = models.ForeignKey(
+        "geo.Room", null=True, blank=True, related_name="+", on_delete=models.SET_NULL
+    )
     hidden = models.BooleanField(default=False)
 
     objects = RelatedManager(
@@ -40,7 +42,9 @@ class Person(models.Model):
     campusonline = models.ForeignKey(
         "campusonline.Person", models.CASCADE, db_constraint=False, related_name="+"
     )
-    room = models.ForeignKey("geo.Room", null=True, blank=True)
+    room = models.ForeignKey(
+        "geo.Room", null=True, blank=True, on_delete=models.SET_NULL
+    )
     hidden = models.BooleanField(default=False)
 
     class Meta:
