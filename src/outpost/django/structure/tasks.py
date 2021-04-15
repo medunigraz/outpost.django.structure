@@ -1,7 +1,8 @@
 import logging
 from datetime import timedelta
 
-from celery.task import PeriodicTask
+from celery import shared_task
+from django.utils.translation import gettext_lazy as _
 
 from outpost.django.campusonline.models import Organization as COOrganization
 from outpost.django.campusonline.models import Person as COPerson
@@ -12,10 +13,10 @@ from .models import Organization, Person
 logger = logging.getLogger(__name__)
 
 
-class StructureSyncTask(PeriodicTask):
-    run_every = timedelta(hours=2)
+class SynchronizationTasks:
 
-    def run(self, **kwargs):
+    @shared_task(bind=True, ignore_result=True, name=f"{__name__}.Synchronization:campusonline")
+    def campusonline(task):
         for cop in COPerson.objects.all():
             logger.debug(f"Sync campusonline.Person {cop.pk}")
             p, created = Person.objects.get_or_create(
