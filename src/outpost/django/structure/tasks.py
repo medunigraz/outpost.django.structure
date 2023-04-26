@@ -26,7 +26,7 @@ class SynchronizationTasks:
                 logger.info(f"Create {p}")
             else:
                 logger.debug(f"Found {p}")
-            if cop.room:
+            if cop.room_id:
                 try:
                     r = Room.objects.get(campusonline=cop.room)
                     if not p.room:
