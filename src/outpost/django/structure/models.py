@@ -1,5 +1,4 @@
 from django.db import models
-
 from outpost.django.base.fields import LowerCaseCharField
 from outpost.django.base.models import RelatedManager
 

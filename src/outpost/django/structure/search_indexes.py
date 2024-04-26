@@ -1,7 +1,10 @@
 from celery_haystack.indexes import CelerySearchIndex
 from haystack import indexes
 
-from .models import Organization, Person
+from .models import (
+    Organization,
+    Person,
+)
 
 
 class OrganizationIndex(CelerySearchIndex, indexes.Indexable):

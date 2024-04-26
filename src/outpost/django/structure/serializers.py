@@ -1,8 +1,10 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
-
 from outpost.django.base.utils import colorscale
 from outpost.django.campusonline import serializers as campusonline
 from outpost.django.geo import serializers as geo
+from rest_framework.serializers import (
+    ModelSerializer,
+    SerializerMethodField,
+)
 
 from . import models
 

@@ -3,18 +3,21 @@ from datetime import timedelta
 
 from celery import shared_task
 from django.utils.translation import gettext_lazy as _
-
 from outpost.django.campusonline import models as campusonline
 from outpost.django.geo.models import Room
 
-from .models import Organization, Person
+from .models import (
+    Organization,
+    Person,
+)
 
 logger = logging.getLogger(__name__)
 
 
 class SynchronizationTasks:
-
-    @shared_task(bind=True, ignore_result=True, name=f"{__name__}.Synchronization:campusonline")
+    @shared_task(
+        bind=True, ignore_result=True, name=f"{__name__}.Synchronization:campusonline"
+    )
     def campusonline(task):
         for cop in campusonline.Person.objects.all():
             logger.debug(f"Sync campusonline.Person {cop.pk}")
@@ -22,7 +25,9 @@ class SynchronizationTasks:
                 cop.room
             except campusonline.Room.DoesNotExist:
                 Person.objects.filter(campusonline_id=cop.pk).delete()
-                logger.warning(f"No campusonline.Room for {cop}) ({cop.pk}), deleting Person")
+                logger.warning(
+                    f"No campusonline.Room for {cop}) ({cop.pk}), deleting Person"
+                )
                 continue
             p, created = Person.objects.get_or_create(
                 campusonline_id=cop.pk, defaults={"campusonline": cop}

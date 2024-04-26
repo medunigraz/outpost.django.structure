@@ -1,7 +1,10 @@
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.viewsets import ModelViewSet
 
-from . import models, serializers
+from . import (
+    models,
+    serializers,
+)
 
 
 class OrganizationViewSet(ModelViewSet):
