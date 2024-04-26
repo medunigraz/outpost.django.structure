@@ -47,6 +47,10 @@ class Person(models.Model):
     )
     hidden = models.BooleanField(default=False)
 
+    objects = RelatedManager(
+        select=("campusonline", "room"),
+    )
+
     class Meta:
         ordering = ("campusonline__last_name", "campusonline__first_name")
 
