@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("campusonline", "0005_organization_person"),
+        ("campusonline", "0001_initial"),
         ("geo", "0013_auto_20170714_1222"),
     ]
 
