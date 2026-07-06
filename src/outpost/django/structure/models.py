@@ -1,6 +1,7 @@
 from django.db import models
 from outpost.django.base.fields import LowerCaseCharField
 from outpost.django.base.models import RelatedManager
+from django.utils.translation import get_language
 
 
 class Organization(models.Model):
@@ -33,7 +34,9 @@ class Organization(models.Model):
 
     def __str__(self):
         if self.campusonline and not self.name:
-            return self.campusonline.name
+            lang = get_language()
+            if lang in self.campusonline.name:
+                return self.campusonline.name.get(lang)
         return self.name
 
 
