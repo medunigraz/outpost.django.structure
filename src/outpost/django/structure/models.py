@@ -24,7 +24,6 @@ class Organization(models.Model):
         select=("campusonline", "office"),
         prefetch=(
             "campusonline__persons",
-            "campusonline__publication_authorship",
             "office__campusonline",
         ),
     )
